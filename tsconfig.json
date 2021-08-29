@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "allowJs": true,
+        "outDir": "lib",
+        "target": "es2018",
+        "declaration": true,
+        "module": "CommonJS",
+        "declarationMap": true,
+        "esModuleInterop": true,
+        "inlineSourceMap": true,
+        "declarationDir": "lib",
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "types": ["node", "mocha"],
+        "typeRoots": ["./src/types"],
+        "lib": ["dom", "es5", "es6"],
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "~/*": ["src/*"]
+        }
+    },
+    "compileOnSave": true,
+    "exclude": ["node_modules"],
+    "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.json", "examples/**/*.ts", "examples/**/*.json"]
+}
