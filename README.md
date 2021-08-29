@@ -5,48 +5,48 @@ Behavior driven contract tests using mocha
 
 -   [NodeJS and NPM](https://nodejs.org/en/download/) should be installed on the local machine
 -   Install this library using the command
-    ```shell
+    ```bash
     npm install mocha-bd-contract
 
     # or if you prefer using yarn,
     
     yarn add mocha-bd-contract
     ```
-    
+
 ### Writing contracts
 Contract tests in this repo are primarily focused on schema based validations. Whenever you call any api, it should exactly match a given JSON schema, and the schema can validate things line what all fields are possible, what their data types should be, what the data restrictions should be etc.
 
 A sample contract test using schema validation would look like this:
 
 ```ts
-    const { validate, initiate } = new Validator({
-        suite: 'Users list API should return 6 users',
-        app: { baseUrl: 'https://reqres.in/api' }
-    })
+const { validate, initiate } = new Validator({
+    suite: 'Users list API should return 6 users',
+    app: { baseUrl: 'https://reqres.in/api' }
+})
 
-    describe('Users API', async () => {
-        await initiate()
+describe('Users API', async () => {
+    await initiate()
 
-        validate(() => ({
-            given: 'I have at least one user in the system',
-            when: 'I call the /users api',
-            with: {
-                url: '/users',
-                method: GET
-            },
-            then: 'I should get a list of users',
-            expect: {
-                statusCode: 200,
-                schema: 'users',
-                fulfilsConditions: (response) => [
-                    {
-                        message: 'There are 6 users',
-                        check: response.data.length === 6
-                    }
-                ]
-            }
-        }))
-    })
+    validate(() => ({
+        given: 'I have at least one user in the system',
+        when: 'I call the /users api',
+        with: {
+            url: '/users',
+            method: GET
+        },
+        then: 'I should get a list of users',
+        expect: {
+            statusCode: 200,
+            schema: 'users',
+            fulfilsConditions: (response) => [
+                {
+                    message: 'There are 6 users',
+                    check: response.data.length === 6
+                }
+            ]
+        }
+    }))
+})
 ```
 
 Refer to the _examples_ folder for sample tests
@@ -64,10 +64,10 @@ Refer to the _examples_ folder for sample tests
 The execution result would lok something like this:
 
 ```
-   ✔ #3071819151: Users list API should return 6 users
-        GIVEN: I have at least one user in the system
-        WHEN : I call the /users api
-        THEN : I should get a list of users                                           (154ms)
+✔ #3071819151: Users list API should return 6 users
+    GIVEN: I have at least one user in the system
+    WHEN : I call the /users api
+    THEN : I should get a list of users                                           (154ms)
 
-    1 passing (155ms)
+1 passing (155ms)
 ```
